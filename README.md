@@ -9,3 +9,4 @@ Ecommerce website for a Smart Watch store.
     3. Make folder structure add pages, components and types folders and add other folders as required.
     4. Add routing to main.tsx file and create pages in pages folder using react-router-dom.
     5. create backend folder, install typescript and express and node types and create an express server. (can also configure eslint)
+    6. Connect to mongo db and make model, router for collection
