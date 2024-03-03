@@ -2,6 +2,9 @@ import { useContext, useEffect } from 'react';
 import { Navbar, Container, Nav, Button, Badge } from 'react-bootstrap';
 import { Link, Outlet } from 'react-router-dom';
 import { Store } from './store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { LinkContainer } from 'react-router-bootstrap';
 
 function App() {
   const {
@@ -19,12 +22,14 @@ function App() {
 
   return (
     <div className="d-flex flex-column vh-100">
+      <ToastContainer position="bottom-center" limit={1} />
       <header>
         <Navbar bg="dark" data-bs-theme="dark" expand="lg">
           <Container>
-            <Navbar.Brand href="/" className="nav-link">
-              Watcher
-            </Navbar.Brand>
+            <LinkContainer to="/">
+              <Navbar.Brand>Watcher</Navbar.Brand>
+            </LinkContainer>
+
             <Nav>
               <Button variant={mode} onClick={switchModeHandler}>
                 <i
