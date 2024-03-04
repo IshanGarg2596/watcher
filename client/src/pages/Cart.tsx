@@ -31,7 +31,7 @@ const Cart = () => {
   };
 
   const checkoutHandler = () => {
-    navigate('/sigin?redirect=/shipping');
+    navigate('/signin?redirect=/shipping');
   };
 
   const removeItemHandler = (item: CartItem) => {
