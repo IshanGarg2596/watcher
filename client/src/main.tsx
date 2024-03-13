@@ -19,6 +19,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { StoreProvider } from './store.tsx';
 import Cart from './pages/Cart.tsx';
 import Signin from './pages/Signin.tsx';
+import Signup from './pages/Signup.tsx';
+import ShippingAddress from './pages/ShippingAddress.tsx';
+import ProtectedRoute from './components/ProtectedRoute.tsx';
+
+import PlaceOrder from './pages/PlaceOrder.tsx';
+import PaymentMethod from './pages/PaymentMethod.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +33,13 @@ const router = createBrowserRouter(
       <Route path="product/:slug" element={<Product />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/signin" element={<Signin />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="" element={<ProtectedRoute />}>
+        <Route path="/Shipping" element={<ShippingAddress />} />
+        <Route path="/payment" element={<PaymentMethod />} />
+        <Route path="/placeorder" element={<PlaceOrder />} />
+      </Route>
+
       {/*<Route path="dashboard" element={<Dashboard />} />
        ... etc. */}
     </Route>

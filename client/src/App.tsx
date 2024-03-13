@@ -1,5 +1,12 @@
 import { useContext, useEffect } from 'react';
-import { Navbar, Container, Nav, Button, Badge } from 'react-bootstrap';
+import {
+  Navbar,
+  Container,
+  Nav,
+  Button,
+  Badge,
+  NavDropdown,
+} from 'react-bootstrap';
 import { Link, Outlet } from 'react-router-dom';
 import { Store } from './store';
 import { ToastContainer } from 'react-toastify';
@@ -8,7 +15,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 function App() {
   const {
-    state: { mode, cart },
+    state: { mode, cart, userInfo },
     dispatch,
   } = useContext(Store);
 
@@ -18,6 +25,15 @@ function App() {
 
   const switchModeHandler = () => {
     dispatch({ type: 'SWITCH_MODE' });
+  };
+
+  const signoutHandler = () => {
+    dispatch({ type: 'USER_SIGNOUT' });
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('paymentMethod');
+    window.location.href = '/signin';
   };
 
   return (
@@ -44,9 +60,34 @@ function App() {
                   </Badge>
                 )}
               </Link>
-              <Nav.Link href="/signin" className="nav-link">
-                Sign In
-              </Nav.Link>
+              {userInfo ? (
+                <NavDropdown
+                  className="header-link"
+                  title={`Hello, ${userInfo.name}`}
+                >
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>User Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/orderhistory">
+                    <NavDropdown.Item>Order History</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Divider />
+                  <Link
+                    className="dropdown-item"
+                    to="#signout"
+                    onClick={signoutHandler}
+                  >
+                    {' '}
+                    Sign Out{' '}
+                  </Link>
+                </NavDropdown>
+              ) : (
+                <NavDropdown className="header-link" title={`Hello, sign in`}>
+                  <LinkContainer to="/signin">
+                    <NavDropdown.Item>Sign In</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
             </Nav>
           </Container>
         </Navbar>
